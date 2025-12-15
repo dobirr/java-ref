@@ -1,22 +1,34 @@
-# Einsendeaufgaben 63611 – Lektion 05 (EA5)
+# Einsendeaufgaben zum Modul 63611 – „Einführung in die objektorientierte Programmierung“
+## Lektion 05
 
-> Format: kompakte Aufgabenübersicht im Stil einer „EA*.md“-Zusammenfassung.  
-> Hinweis: Die folgenden Aufgabenstellungen sind **inhaltlich** aus dem PDF übernommen, aber **sprachlich neu formuliert** (paraphrasiert).
+Bitte beachten Sie: Die Einsendeaufgaben sind bei Modul 63611 nicht ohne weiteres mit den Klausuraufgaben gleichzusetzen. In der Klausur kommen auch Aufgaben vor, zu deren Lösung Sie Begriffe und/oder konzeptionelle Zusammenhänge erklären müssen. Diese können den Einsendeaufgaben nicht sinnvoll abgefragt werden, weil man die Antworten einfach im Lehrtext nachlesen kann.
+
+Das Lehrgebiet stellt Ihnen aber die Klausuren der letzten Semester incl. Musterlösungen zur Verfügung, damit Sie einen realistischen Eindruck von der Klausur bekommen können. Sie finden diese in der Moodle-Umgebung des Moduls unter „Arbeitsmaterial“.
+
+1. Die Abgabe erfolgt ausschließlich über das Online-Übungssystem.
+2. Als Beleger bzw. Belegerin des Moduls 63611 können Sie mit Ihrem FernUni-Account Ihre Lösungen dort einstellen.
+3. Eine Handkorrektur Ihrer Einsendung erfolgt nicht automatisch, sondern nur auf Anforderung. Weitere Informationen dazu finden Sie im Moodle des Moduls unter „Einsendeaufgaben“.
+4. Sobald eine Korrektur der Aufgaben für Sie bereitsteht, werden Sie per E-Mail informiert.
+5. Sollten Sie in Sonderfällen das Online-Übungssystem nicht nutzen können (z.B. wegen körperlicher Einschränkungen oder als JVA-Insasse), nehmen Sie bitte telefonisch (02331 - 987 - 2998) oder per E-Mail (sekretariat.steimann@fernuni-hagen.de) Kontakt mit unserem Sekretariat auf.
 
 ---
 
-## Aufgabe 1 – Anonyme Klassen & Lambda-Ausdrücke (20 Punkte)
+## Aufgabe 1: Anonyme Klassen und Lambda-Ausdrücke (20 Punkte)
 
-### Gegeben
-Du hast ein funktionales Interface `IntIntFunction` (int → int) und einen Operator, der die Funktion wiederholt ausführt, bis ein Zielwert erreicht ist.
+Gegeben seien die folgenden Deklarationen:
 
-**Vorgaben (sinngemäß):**
 ```java
+// Ein Interface für Funktionen, welche eine Ganzzahl auf eine andere abbilden
 public interface IntIntFunction {
     int perform(int input);
 }
 
 public class FunctionOperator {
+
+    // Führt eine übergebene Funktion so oft aus, bis der gewünschte Zielwert erreicht ist.
+    // Beim ersten Aufruf wird der übergebene Startwert als Eingabe der Funktion verwendet,
+    // bei den folgenden Aufrufen dann jeweils das Ergebnis des letzten Aufrufs. Am Ende
+    // wird die Anzahl der Aufrufe zurückgegeben, die zum Erreichen des Zielwertes nötig war.
     public int operate(IntIntFunction function, int start, int target) {
         int counter = 0;
         int value = start;
@@ -29,144 +41,221 @@ public class FunctionOperator {
 }
 ```
 
-### Aufgabe: `FunctionOperatorTest`
-Schreibe eine Klasse `FunctionOperatorTest` mit `main`, in der du zuerst `FunctionOperator op = new FunctionOperator();` erzeugst und dann:
+Schreiben Sie eine Klasse **FunctionOperatorTest** in deren **main**-Methode Sie zunächst eine Instanz der Klasse **FunctionOperator** erzeugen. Ergänzen Sie Ihre **main**-Methode dann um die folgenden Aktionen:
 
-#### a) Anonyme Klasse für f1 (3 Punkte)
-- Erzeuge eine **anonyme Klasse**, die `IntIntFunction` implementiert, sodass `perform` der Funktion  
-  **f1(x) = x − 1** entspricht.
-- Rufe `op.operate(...)` mit Start **10** und Ziel **-10** auf.
-- Gib die Anzahl der Aufrufe auf der Konsole aus.
+### a) (3 Punkte)
+Erzeugen Sie eine Instanz einer anonymen Klasse, die das Interface **IntIntFunction** so implementiert, dass die Methode **perform** der Funktion **f1(x) = x - 1** entspricht. Rufen Sie auf Ihrem **FunctionOperator** die Methode **operate** auf und übergeben Sie Ihre Instanz der anonymen Klasse, den Startwert **10** und den Zielwert **-10**. Geben Sie den Rückgabewert der Methode **operate** auf die Konsole aus.
 
-#### b) Anonyme Klasse für f2 (4 Punkte)
-- Erzeuge eine **anonyme Klasse** für die Funktion  
-  **f2(x) = x/2 (falls x gerade)**, sonst **f2(x) = 3x + 1**.
-- Rufe `op.operate(...)` mit Start **27** und Ziel **1** auf.
-- Gib das Ergebnis (entspricht „wunder(27)“) aus.
+### b) (4 Punkte)
+Erzeugen Sie eine Instanz einer anonymen Klasse, die das Interface **IntIntFunction** so implementiert, dass die Methode **perform** der folgenden Funktion entspricht:
 
-#### c) Lambda für f1 (5 Punkte)
-- Rufe `op.operate(...)` auf und übergib diesmal einen **Lambda-Ausdruck** für **f1(x)=x−1**.
-- Start **10**, Ziel **-10**, Ergebnis ausgeben.
+- **f2(x) = x/2** wenn x gerade
+- **f2(x) = 3x + 1** wenn x ungerade.
 
-#### d) Lambda für f2 (8 Punkte)
-- Rufe `op.operate(...)` auf und übergib einen **Lambda-Ausdruck** für **f2** (wie in b).
-- Start **27**, Ziel **1**, Ergebnis ausgeben.
-- Tipp aus dem Skript: Nutze einen Ausdruck, der wie „if-else“ funktioniert (typisch: ternärer Operator `?:`).
+Diese Funktion sollte Ihnen von den „wundersamen Zahlen“ her bekannt vorkommen. Rufen Sie auf Ihrem **FunctionOperator** die Methode **operate** auf und übergeben Sie Ihre Instanz der anonymen Klasse, den Startwert **27** und den Zielwert **1**. Geben Sie den Rückgabewert der Methode **operate** – also **wunder(27)** – auf die Konsole aus.
+
+### c) (5 Punkte)
+Rufen Sie auf Ihrem **FunctionOperator** die Methode **operate** auf und übergeben Sie einen **Lambda-Ausdruck**, welcher der obigen Funktion **f1** entspricht, den Startwert **10** und den Zielwert **-10**. Geben Sie den Rückgabewert der Methode **operate** auf die Konsole aus.
+
+### d) (8 Punkte)
+Rufen Sie auf Ihrem **FunctionOperator** die Methode **operate** auf und übergeben Sie einen **Lambda-Ausdruck**, welcher der obigen Funktion **f2** entspricht, den Startwert **27** und den Zielwert **1**. Geben Sie den Rückgabewert der Methode **operate** – also **wunder(27)** – auf die Konsole aus.
+
+**Tipp:** Aus Kurseinheit 1 kennen Sie einen Ausdruck, der Ähnliches leistet, wie eine If-Else-Anweisung. Das könnte hier sehr nützlich sein…
 
 ---
 
-## Aufgabe 2 – AWT Zeichnen (30 Punkte)
+## Aufgabe 2: AWT – Zeichnen (30 Punkte)
 
-### Gegeben: Model
-Ein Model für einen Kurzzeitwecker:
+Gegeben sei die folgende Klasse, die als Model für die Implementierung eines Kurzzeitweckers dienen soll:
 
 ```java
 public class EggTimerModel {
+
+    // vorgesehene Laufzeit in Sekunden
     private int totalTimeInSeconds;
+
+    // verstrichene Zeit in Sekunden
     private int elapsedTimeInSeconds;
 
+    // erzeugt eine neue Instanz dieser Klasse für die angegebene Laufzeit
     public EggTimerModel(int totalTimeInSeconds) {
         this.totalTimeInSeconds = totalTimeInSeconds;
     }
 
+    // liefert den Zeitanteil, der bereits verstrichen ist
     public double getElapsedPart() {
         return (double) elapsedTimeInSeconds / totalTimeInSeconds;
     }
 
+    // erhöht die verstrichene Zeit um eine Sekunde
     public void increaseElapsedTime() {
         elapsedTimeInSeconds++;
     }
 }
 ```
 
-### a) `EggTimerCanvas` (20 Punkte)
-Erstelle eine Klasse `EggTimerCanvas extends java.awt.Canvas`, die den Zustand des `EggTimerModel`
-als **Tortendiagramm** visualisiert.
+### a) (20 Punkte)
+Erstellen Sie eine von **java.awt.Canvas** abgeleitete Klasse **EggTimerCanvas**, welche den Zustand eines solchen Models in Form eines **Tortendiagramms** grafisch darstellt. Orientieren Sie sich dabei an folgender Abbildung, in der ein Model dargestellt wird, bei dem **4 von 60 Sekunden** bereits vergangen sind.
 
-**Anforderungen:**
-1. `EggTimerCanvas` **kennt** genau ein `EggTimerModel` (hat-ein).  
-   → Übergabe der Model-Referenz im Konstruktor.
-2. Setze im Konstruktor eine **Preferred Size** von **320×320** (über `setPreferredSize(new Dimension(...))`).
-3. Zeichne in `paint(Graphics g)` ein Tortendiagramm:
-    - Kreis-Durchmesser: **300 px**
-    - Kreis **zentriert** im Canvas
-    - Du nutzt passende Methoden aus `java.awt.Graphics` zum Zeichnen/Füllen von Kreis/Kreisbögen.
+**Hinweise zur Umsetzung der Aufgabe:**
 
-### b) Testklasse `EggTimerCanvasTest` (10 Punkte)
-Ergänze die vorgegebene Test-Skizze so, dass:
-- ein `EggTimerModel` mit **60 Sekunden** erzeugt wird,
-- ein `EggTimerCanvas` dieses Model benutzt,
-- ein `Frame` mit Titel **"Kurzzeitwecker"** erstellt wird,
-- ein **anonymer Listener** beim Schließen das Programm beendet,
-- der Canvas im **Center** eingefügt wird,
-- `frame.pack()` aufgerufen wird,
-- das Fenster **zentriert** wird (Hinweis: „Ad-hoc-Aufgabe 5“),
-- das Fenster sichtbar wird,
-- danach **4×** im Abstand von **1 Sekunde**:
-    - Model hochgezählt wird (`increaseElapsedTime`)
-    - Canvas neu gezeichnet wird (`repaint`)
+1. Instanzen der Klasse **EggTimerCanvas** sollen jeweils eine Instanz der Klasse **EggTimerModel** kennen („Hat-ein-Beziehung“). Eine Referenz auf „sein“ Model soll einem **EggTimerCanvas** in seinem Konstruktor übergeben werden.
+2. Mit der Methode **setPreferredSize** kann man die „Wunschgröße“ einer Komponente festlegen. Der Methode muss ein Objekt der Klasse **java.awt.Dimension** übergeben werden. Finden Sie mit Hilfe der API-Dokumentation der Java-Standard-Klassenbibliothek heraus, wie Sie ein solches Objekt erzeugen und setzen Sie die Wunschgröße Ihrer **EggTimerCanvas**-Instanzen im Konstruktor ihrer Klasse auf **320 x 320 Pixel**.
+3. Der Kreis des Tortendiagramms soll einen Durchmesser von **300 Pixeln** haben und **mittig** auf das **EggTimerCanvas** gezeichnet werden. Geeignete Methoden zum Zeichnen bzw. Füllen von Kreisen und Kreisbögen finden Sie in der Klasse **java.awt.Graphics**. Verwenden Sie diese Methoden in der Methode **paint** Ihrer Klasse **EggTimerCanvas** auf dem **Graphics**-Objekt, welches das AWT-Framework dieser Methode beim Aufruf übergibt, wenn es ein Neuzeichnen des **EggTimerCanvas** durchführt.
+
+### b) (10 Punkte)
+Schreiben Sie eine Testklasse für Ihre Klasse **EggTimerCanvas**. Ergänzen Sie dazu die untenstehenden Klassenskizze, indem Sie unter den Kommentaren entsprechenden Quellcode einfügen.
+
+Wenn Sie alles richtig gemacht haben, wird zunächst ein Tortendiagramm angezeigt, welches das Model in dem Zustand zeigt, den es bei der Erzeugung hat (**0 von 60 Sekunden** verstrichen). Jede Sekunde vergrößert sich der grüne Bereich, bis nach vier Sekunden dann der oben abgebildete Zustand erreicht ist (**4 von 60 Sekunden** verstrichen).
+
+```java
+import java.awt.Frame;
+import java.awt.event.*;
+
+public class EggTimerCanvasTest {
+
+    public static void main(String[] args) {
+
+        // Erzeugen eines EggTimerModel für eine Laufzeit von 60 Sekunden.
+
+        // Erzeugen eines EggTimerCanvas, das das oben erzeugte Model verwendet.
+
+        // Erzeugen eines Haupfensters mit dem Titel "Kurzzeitwecker".
+
+        // Anmelden eines "anonymen" Listeners, der beim Schließen des
+        // Hauptfensters die Anwendung beendet.
+
+        // Einfügen des EggTimerCanvas im Zentralbereich des Hauptfensters.
+
+        // Dieser Aufruf sorgt dafür, dass der LayoutManager des Hauptfensters
+        // dessen Größe gemäß der Wunschgrößen der auf diesem angeordneten
+        // Komponenten berechnet. Hier müssen Sie nichts einfügen.
+        frame.pack();
+
+        // Positionieren des Fensters in der Bildschirmmitte
+        // (siehe Ad-hoc-Aufgabe 5 der KE5).
+
+        // Sichtbarmachen des Fensters.
+        for(int i = 0; i < 4; i++) {
+
+            // Eine Sekunde Pause (wird in KE6 näher erläutert).
+            // Hier müssen Sie nichts einfügen.
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            // "Hochzählen" des Models um eins
+
+            // Anstoßen eines Neuzeichnens des EggTimerCanvas.
+        }
+    }
+}
+```
 
 ---
 
-## Aufgabe 3 – Model & Controller (25 Punkte)
+## Aufgabe 3: Model und Controller (25 Punkte)
 
-### Gegeben
-- Interface `TickListener`:
+Gegeben seien die folgenden Deklarationen:
+
 ```java
 public interface TickListener {
     void tickPerformed();
 }
+
+public class EggTimerModel {
+
+    // vorgesehene Laufzeit in Sekunden
+    private int totalTimeInSeconds;
+
+    // verstrichene Zeit in Sekunden
+    private int elapsedTimeInSeconds;
+
+    // erzeugt eine neue Instanz dieser Klasse für die angegebene Laufzeit
+    public EggTimerModel(int totalTimeInSeconds) {
+        this.totalTimeInSeconds = totalTimeInSeconds;
+    }
+
+    // liefert den Zeitanteil, der bereits verstrichen ist
+    public double getElapsedPart() {
+        return (double) elapsedTimeInSeconds / totalTimeInSeconds;
+    }
+
+    // erhöht die verstrichene Zeit um eine Sekunde
+    public void increaseElapsedTime() {
+        elapsedTimeInSeconds++;
+    }
+}
 ```
 
-- `EggTimerModel` (wie oben)
+Außerdem haben wir, um die Aufgabe etwas interessanter zu gestalten, eine Klasse **EventBasedTimer** erstellt. Sie müssen den Code dieser Klasse nicht im Detail verstehen. Es reicht wenn Sie folgendes wissen:
 
-- `EventBasedTimer` (Sekundentakt, Observer-Prinzip):
-    - `addTickListener(listener)` registriert Beobachter
-    - `start()` informiert alle TickListener 1× pro Sekunde
-    - `stop()` beendet den Timer
+- Instanzen der Klasse **EventBasedTimer** sind ereignisbasierte Timer: Man kann bei Ihnen mit der Methode **addTickListener** Objekte des Typs **TickListener** als Beobachter anmelden.
+- Wenn der Timer gestartet wird, werden alle angemeldeten Beobachter im Sekundentakt durch Aufruf ihrer Methode **tickPerfomed** informiert, so lange der Timer läuft.
+- Der Timer kann mit der Methode **start** gestartet und mit der Methode **stop** beendet werden.
 
-### a) `EggTimerController` (20 Punkte)
-Schreibe `EggTimerController` mit folgenden Eigenschaften:
+```java
+import java.util.*;
 
-1. Controller **kennt** ein `EggTimerModel` (hat-ein) → Übergabe im Konstruktor.
-2. Controller **kennt** einen `EventBasedTimer` (hat-ein) → erzeugt ihn selbst bei der Initialisierung.
-3. Controller meldet sich bei seinem Timer als `TickListener` an und startet den Timer (gemäß Aufgabenblatt: direkt nach Initialisierung).
-4. Bei jedem Tick:
-    - `model.increaseElapsedTime()`
-    - `model.getElapsedPart()` abfragen und **auf die Konsole ausgeben**
-5. Wenn `elapsedPart == 1` → Timer stoppen.
+public class EventBasedTimer {
 
-### b) Testklasse (5 Punkte)
-Schreibe eine `main`, die das Zusammenspiel aus `EggTimerModel`, `EggTimerController` und `EventBasedTimer` demonstriert.
+    private Timer internalTimer = new Timer();
+    private List<TickListener> listeners = new ArrayList<TickListener>();
+
+    // Meldet einen TickListener beim Timer an.
+    public void addTickListener(TickListener listener) {
+        listeners.add(listener);
+    }
+
+    // Startet diesen Timer.
+    public void start() {
+        internalTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (TickListener tickListener : listeners) {
+                    tickListener.tickPerformed();
+                }
+            }
+        }, 1000, 1000);
+    }
+
+    // Stoppt diesen Timer.
+    public void stop() {
+        internalTimer.cancel();
+    }
+}
+```
+
+### a) (20 Punkte)
+Schreiben Sie eine Klasse **EggTimerController**, welche die folgenden Bedingungen erfüllt:
+
+1. Instanzen der Klasse **EggTimerController** sollen jeweils eine Instanz der Klasse **EggTimerModel** kennen („Hat-ein-Beziehung“). Eine Referenz auf „sein“ Model soll einem **EggTimerController** in seinem Konstruktor übergeben werden.
+2. Instanzen der Klasse **EggTimerController** sollen jeweils eine Instanz der Klasse **EventBasedTimer** kennen („Hat-ein-Beziehung“). Diesen Timer erzeugen sie sich im Zuge ihrer eigenen Initialisierung selbst.
+3. Jeder **EggTimerController** meldet sich im Zuge seiner eigenen Initialisierung bei „seinem“ Timer als Beobachter an. Anschließend startet er direkt den Timer.
+4. Wird ein **EggTimerController** von seinem Timer benachrichtigt, ruft er auf seinem Model dessen Methode **increaseElapsedTime** auf. Anschließend fragt er beim Model den bereits verstrichenen Zeitanteil ab und gibt das Ergebnis auf die Konsole aus.
+5. Wenn der bereits verstrichene Zeitanteil gleich **1** ist, stoppt der **EggTimerController** den Timer.
+
+### b) (5 Punkte)
+Testen Sie das Zusammenspiel der Klassen **EggTimerController**, **EggTimerModel** und **EventBasedTimer** in einer Testklasse mit **main**-Methode.
 
 ---
 
-## Aufgabe 4 – MVC komplett (25 Punkte)
+## Aufgabe 4: Model, View, Controller (25 Punkte)
 
-Ziel: Aus Model (`EggTimerModel`), View (`EggTimerCanvas`), Controller (`EggTimerController`) und `EventBasedTimer`
-ein vollständiges GUI-Programm bauen.
+In dieser Aufgabe sollen die Klassen **EggTimerModel**, **EggTimerCanvas**, **EggTimerController** und **EventBasedTimer** aus den vorigen beiden Aufgaben zu einem vollständigen Programm mit grafischer Oberfläche zusammengefügt werden. Dazu werden Sie einige Änderungen an den Klassen vornehmen.
 
-### a) Controller aktualisiert View statt Konsole (10 Punkte)
-Ändere `EggTimerController` so, dass er **nicht mehr auf die Konsole schreibt**, sondern stattdessen die View aktualisiert:
-- Controller muss `EggTimerCanvas` kennen (hat-ein),
-- im Tick soll ein Update/Neuzeichnen der View ausgelöst werden.
+### a) (10 Punkte)
+An der Stelle in der Klasse **EggTimerController**, an der bisher eine Ausgabe auf die Konsole erfolgte, soll stattdessen dafür gesorgt werden, dass sich das View – eine Instanz der Klasse **EggTimerCanvas** – aktualisiert. Damit der Controller diese Aktualisierung des Views auslösen kann, muss er es kennen („Hat-ein-Beziehung“). Nehmen Sie die dazu nötigen Änderungen an der Klasse **EggTimerController** vor.
 
-### b) `MVCEggTimerMain` (5 Punkte)
-Schreibe `MVCEggTimerMain` (mit `main`), die:
-- Model, View, Controller sinnvoll verdrahtet,
-- die View in einem `Frame` anzeigt,
-- sich dabei an der Testklasse aus Aufgabe 2 orientiert.
+### b) (5 Punkte)
+Schreiben Sie eine Klasse **MVCEggTimerMain**, in deren **main**-Methode Sie Model, View und Controller auf eine sinnvolle Weise miteinander verbinden und das View in einer Instanz der Klasse **Frame** anzeigen. Sie können und sollen sich bei der Erstellung der Klasse **MVCEggTimerMain** weitgehend an der Klasse **EggTimerCanvasTest** aus Aufgabe 2 orientieren.
 
-### c) Start-Button steuert Start (10 Punkte)
-Ändere `MVCEggTimerMain` und `EggTimerController` so, dass:
+### c) (10 Punkte)
+Bis jetzt läuft der Kurzzeitwecker sofort los, wenn das Programm gestartet wird. Ändern Sie die Klassen **MVCEggTimerMain** und **EggTimerController** so, dass die folgenden Bedingungen erfüllt sind:
 
-1. Im **South**-Bereich des Frames gibt es einen Button **„Start“**.
-2. Der Controller wird als Listener für `actionPerformed` beim Button registriert.
-3. Der Timer startet **erst nach Klick** auf „Start“.
-4. Nach dem ersten Klick wird der Button **deaktiviert**, sodass weitere Klicks keine Events mehr auslösen  
-   (Hinweis: Dafür gibt es eine Methode in `java.awt.Component`).
-
----
-
-## Abgabe / Hinweise
-- Abgabe erfolgt über das Online-Übungssystem (wie im Aufgabenblatt beschrieben).
+1. Im Südbereich des Hauptfensters befindet sich ein Knopf mit der Aufschrift **„Start“**.
+2. Der Controller wird bei diesem Knopf als Beobachter für **actionPerformed**-Ereignisse angemeldet.
+3. Erst, wenn der Knopf gedrückt wird, soll der Controller den Timer starten.
+4. Wenn der Knopf gedrückt wurde, soll er deaktiviert werden, so dass erneutes Drücken kein Ereignis mehr auslöst. Um Komponenten aktiv bzw. inaktiv zu schalten, gibt es eine Methode in der Klasse **Component**.

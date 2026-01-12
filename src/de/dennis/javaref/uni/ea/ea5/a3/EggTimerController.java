@@ -10,7 +10,7 @@ public class EggTimerController implements TickListener {
 
         this.timer = new EventBasedTimer();
         this.timer.addTickListener(this);
-        this.timer.start(); // laut Aufgabe: startet direkt nach Initialisierung
+        this.timer.start();
     }
 
     @Override

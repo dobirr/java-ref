@@ -1,4 +1,4 @@
-package de.dennis.javaref.uni.ea.ea1.fallunterscheidung;
+package de.dennis.javaref.uni.ea.ea1.a2.fallunterscheidung;
 
 public class FallunterscheidungTest {
     public static void main(String[] args) {

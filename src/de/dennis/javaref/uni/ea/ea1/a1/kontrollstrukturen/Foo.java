@@ -1,4 +1,4 @@
-package de.dennis.javaref.uni.ea.ea1.kontrollstrukturen;
+package de.dennis.javaref.uni.ea.ea1.a1.kontrollstrukturen;
 
 public class Foo {
     // Es wird eine main Methode angelegt, die zum Ausführen benötigt wird. Diese ist statisch und somit der Klasse Foo zugehörig.
